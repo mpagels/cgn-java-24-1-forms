@@ -21,16 +21,10 @@ function App() {
     const [formData, setFormdata] = useState<Input>({name: "", age: "", email: ""})
     const [submittedInputs, setSubmittedInputs] = useState<Input[]>([])
     const [errors, setErrors] = useState<{ [key: string]: string }>({})
-    function handleOnChangeName(event: ChangeEvent<HTMLInputElement>) {
-        setFormdata({...formData, name: event.target.value})
-    }
 
-    function handleOnChangeAge(event: ChangeEvent<HTMLInputElement>) {
-        setFormdata({...formData, age: event.target.value})
-    }
-
-    function handleOnChangeEmail(event: ChangeEvent<HTMLInputElement>) {
-        setFormdata({...formData, email: event.target.value})
+    function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
+        const key = event.target.name
+        setFormdata({...formData, [key]: event.target.value})
     }
 
     function handleOnSubmit(event: FormEvent<HTMLFormElement>) {
@@ -64,17 +58,17 @@ function App() {
         <form onSubmit={handleOnSubmit}>
             <div>
                 <label htmlFor={"name"}>Name</label>
-                <input onChange={handleOnChangeName} type="text" id="name" name={"name"} value={formData.name}/>
+                <input onChange={handleOnChange} type="text" id="name" name={"name"} value={formData.name}/>
                 {errors.name && <div style={{color: "red"}}>{errors.name}</div>}
             </div>
         <div>
             <label htmlFor={"age"}>Alter</label>
-            <input onChange={handleOnChangeAge} type={"text"} id={"age"} name={"age"} value={formData.age}/>
+            <input onChange={handleOnChange} type={"text"} id={"age"} name={"age"} value={formData.age}/>
             {errors.age && <div style={{color: "red"}}>{errors.age}</div>}
         </div>
             <div>
                 <label htmlFor={"email"}>Email</label>
-                <input onChange={handleOnChangeEmail} type={"email"} id={"email"} name={"email"} value={formData.email}/>
+                <input onChange={handleOnChange} type={"email"} id={"email"} name={"email"} value={formData.email}/>
                 {errors.email && <div style={{color: "red"}}>{errors.email}</div>}
             </div>
             <button>Submit</button>
